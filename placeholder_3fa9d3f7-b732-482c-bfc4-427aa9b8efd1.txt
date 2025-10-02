@@ -1,0 +1,13 @@
+
+Credit Report Analysis
+=====================
+
+Report ID: 3fa9d3f7-b732-482c-bfc4-427aa9b8efd1
+Filename: Equifax 5-14-13.pdf
+Pages: 2
+Text Length: 3527
+
+This is a placeholder for the actual PDF file.
+In a production system, the original PDF would be stored and served here.
+
+To view the actual parsed content, please use the report detail page.

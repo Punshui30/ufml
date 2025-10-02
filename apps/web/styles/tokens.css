@@ -1,0 +1,339 @@
+/* Credit Hardar Premium Design Tokens */
+
+:root {
+  /* Brand Colors */
+  --brand: #1E47FF;
+  --brand-grad-top: #234CFF;
+  --brand-grad-bot: #5A46D6;
+  --accent: #14B8A6;
+  
+  /* Typography */
+  --text: #0F172A;
+  --muted: #475569;
+  
+  /* UI Elements */
+  --border: #E5E7EB;
+  --bg: #FFFFFF;
+  --surface: #F8FAFC;
+  
+  /* Radii */
+  --r-sm: 10px;
+  --r-md: 14px;
+  --r-lg: 18px;
+  
+  /* Shadows */
+  --shadow-1: 0 2px 10px rgba(2,6,23,.06);
+  --shadow-2: 0 12px 30px rgba(2,6,23,.12);
+  
+  /* Spacing */
+  --s-2: 16px;
+  --s-3: 24px;
+  --s-4: 32px;
+  --s-6: 48px;
+  --s-8: 64px;
+  --s-10: 80px;
+  --s-12: 96px;
+  
+  /* Container */
+  --container-max: 1200px;
+  --section-rhythm: 88px;
+  
+  /* Animations */
+  --transition-fast: 120ms ease;
+  --transition-normal: 160ms ease;
+  --transition-slow: 200ms ease;
+  
+  /* Glass Effect */
+  --glass-bg: rgba(255, 255, 255, 0.06);
+  --glass-border: rgba(255, 255, 255, 0.18);
+  --glass-blur: 8px;
+}
+
+/* Premium Typography */
+.premium-h1 {
+  font-size: clamp(3.5rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.005em;
+  color: var(--text);
+}
+
+.premium-h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+.premium-subtitle {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.premium-text-white {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Premium Components */
+.premium-container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--s-3);
+}
+
+.premium-section {
+  padding: var(--section-rhythm) 0;
+}
+
+.premium-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-1);
+  transition: all var(--transition-fast);
+}
+
+.premium-card:hover {
+  box-shadow: var(--shadow-2);
+  transform: translateY(-2px);
+}
+
+.premium-glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--r-lg);
+}
+
+/* Premium Buttons */
+.premium-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 28px;
+  border-radius: var(--r-sm);
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.premium-btn-primary {
+  background: var(--bg);
+  color: var(--brand);
+  box-shadow: var(--shadow-1);
+}
+
+.premium-btn-primary:hover {
+  background: var(--brand);
+  color: var(--bg);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-2);
+}
+
+.premium-btn-secondary {
+  background: transparent;
+  color: var(--bg);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.premium-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-1px);
+}
+
+.premium-btn-lg {
+  padding: 18px 36px;
+  font-size: 1.125rem;
+}
+
+/* Segmented Control */
+.segmented-control {
+  display: inline-flex;
+  background: var(--surface);
+  border-radius: var(--r-sm);
+  padding: 4px;
+  position: relative;
+}
+
+.segmented-option {
+  position: relative;
+  z-index: 2;
+  padding: 8px 16px;
+  border-radius: calc(var(--r-sm) - 4px);
+  font-weight: 500;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+  background: transparent;
+  border: none;
+  color: var(--muted);
+}
+
+.segmented-option.active {
+  color: var(--brand);
+}
+
+.segmented-thumb {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  right: 4px;
+  bottom: 4px;
+  background: var(--bg);
+  border-radius: calc(var(--r-sm) - 4px);
+  box-shadow: var(--shadow-1);
+  transition: transform 180ms ease;
+  z-index: 1;
+}
+
+.segmented-thumb.position-0 {
+  transform: translateX(0);
+}
+
+.segmented-thumb.position-1 {
+  transform: translateX(100%);
+}
+
+/* Price Animation */
+.price-animate {
+  transition: all var(--transition-slow);
+}
+
+.price-animate.updating {
+  transform: translateY(2px);
+  opacity: 0.7;
+}
+
+/* Icon Animations */
+.icon-draw path {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: draw 800ms ease forwards;
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Badge */
+.premium-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  background: var(--accent);
+  color: white;
+  border-radius: calc(var(--r-sm) / 2);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Focus States */
+.premium-focus:focus {
+  outline: 2px solid #93C5FD;
+  outline-offset: 2px;
+}
+
+/* Responsive Grid */
+.premium-grid {
+  display: grid;
+  gap: var(--s-6);
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+@media (min-width: 768px) {
+  .premium-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Trust Strip */
+.trust-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-6);
+  padding: var(--s-4) 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.trust-stat {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.trust-number {
+  display: block;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--text);
+}
+
+/* FAQ Accordion */
+.faq-item {
+  border-bottom: 1px solid var(--border);
+}
+
+.faq-question {
+  width: 100%;
+  padding: var(--s-3) 0;
+  text-align: left;
+  background: none;
+  border: none;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: color var(--transition-fast);
+}
+
+.faq-question:hover {
+  color: var(--brand);
+}
+
+.faq-answer {
+  overflow: hidden;
+  transition: height var(--transition-normal) ease;
+}
+
+.faq-answer.open {
+  padding-bottom: var(--s-3);
+}
+
+.faq-content {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* Utility Classes */
+.text-center { text-align: center; }
+.mb-4 { margin-bottom: var(--s-2); }
+.mb-6 { margin-bottom: var(--s-3); }
+.mb-8 { margin-bottom: var(--s-4); }
+.mb-12 { margin-bottom: var(--s-6); }
+
+.flex { display: flex; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.gap-4 { gap: var(--s-2); }
+.gap-6 { gap: var(--s-3); }
+
+
+

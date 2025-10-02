@@ -1,0 +1,82 @@
+COPY THIS TO CHATGPT - BACKEND IMPORT ERROR
+
+CURRENT ERROR:
+ModuleNotFoundError: No module named 'routers'
+
+PROBLEM:
+The backend is failing to start because it can't import the `routers` module. This is a Python module path issue.
+
+FILE STRUCTURE:
+credit-platform-secure-scaffold-with-policies/
+├── apps/
+│   ├── api/
+│   │   ├── main.py              # FastAPI app
+│   │   ├── requirements.txt     # Dependencies (fixed)
+│   │   ├── db.py               # Database config (created)
+│   │   └── routers/
+│   │       └── reports.py      # Reports endpoints (created)
+│   └── web/                    # Next.js frontend
+
+WHAT'S WORKING:
+- ✅ Python 3.11 installed
+- ✅ Dependencies installed successfully 
+- ✅ Backend health endpoint works when started correctly
+- ✅ Frontend shows "BACKEND NOT AVAILABLE" because backend won't start
+
+WHAT'S BROKEN:
+- ❌ Backend won't start due to import error
+- ❌ PowerShell doesn't support `&&` syntax (Windows issue)
+- ❌ Module import path is wrong
+
+EXACT COMMANDS TO FIX:
+
+1. Fix the import in main.py:
+```python
+# Change this line in apps/api/main.py:
+from routers import reports
+
+# To this:
+from .routers import reports
+```
+
+2. Start backend from correct directory:
+```powershell
+cd apps\api
+py -3.11 -c "import uvicorn; uvicorn.run('main:app', host='127.0.0.1', port=8000, log_level='info')"
+```
+
+3. Start frontend:
+```powershell
+cd apps\web
+npm install
+npm run dev
+```
+
+ALTERNATIVE - CREATE __init__.py FILES:
+If the relative import doesn't work, create these files:
+- `apps/api/__init__.py` (empty file)
+- `apps/api/routers/__init__.py` (empty file)
+
+TEST COMMANDS:
+```powershell
+# Test backend health
+Invoke-WebRequest http://127.0.0.1:8000/healthz
+
+# Test reports endpoint  
+Invoke-WebRequest http://127.0.0.1:8000/reports
+```
+
+EXPECTED RESULT:
+- Backend starts without import errors
+- Frontend connects to backend
+- No more "BACKEND NOT AVAILABLE" popup
+- PDF upload should work
+
+ENVIRONMENT:
+- Windows 10/11
+- Python 3.11 (working)
+- PowerShell (doesn't support && syntax)
+- FastAPI backend on port 8000
+- Next.js frontend on port 3000
+
+The core issue is the Python module import path. Fix that and everything should work.
