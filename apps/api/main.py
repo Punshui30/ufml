@@ -1,6 +1,9 @@
-from fastapi import FastAPI, Request
+"""FastAPI application entry point."""
+
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from apps.api.routers import reports
+
+from apps.api.routers import ai, clients, disputes, reports
 
 app = FastAPI(title="UFML API", version="0.1.0")
 
@@ -25,3 +28,6 @@ async def _boot():
     print(">>> Allow Origins: http://127.0.0.1:3000, http://localhost:3000 <<<")
 
 app.include_router(reports.router, prefix="/reports", tags=["reports"])
+app.include_router(ai.router, prefix="/ai", tags=["ai"])
+app.include_router(clients.router, prefix="/clients", tags=["clients"])
+app.include_router(disputes.router, prefix="/disputes", tags=["disputes"])
