@@ -1,5 +1,6 @@
 import io, uuid, time, json
 from typing import List
+
 from fastapi import APIRouter, UploadFile, File, HTTPException, Request
 from pydantic import BaseModel
 import fitz  # PyMuPDF
@@ -16,6 +17,10 @@ class ReportOut(BaseModel):
     filename: str
     pages: int
     text_len: int
+
+
+class ReportAnalysisRequest(BaseModel):
+    report_id: str
 
 @router.get("")
 def list_reports() -> List[ReportOut]:
@@ -113,8 +118,10 @@ def delete_report(report_id: str):
     return {"deleted": True}
 
 @router.post("/analyze")
-async def analyze_report(request: Request, report_id: str):
+async def analyze_report(request: Request, payload: ReportAnalysisRequest):
     """Analyze a report using AI"""
+    report_id = payload.report_id
+
     report = next((r for r in REPORTS if r["id"] == report_id), None)
     if not report:
         raise HTTPException(404, "Report not found")
