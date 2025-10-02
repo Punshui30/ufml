@@ -1,10 +1,26 @@
-import io, uuid, time, json
+import io
+import json
+import time
+import uuid
 from typing import List
-from fastapi import APIRouter, UploadFile, File, HTTPException, Request
+
+from fastapi import APIRouter, File, HTTPException, Request, UploadFile
 from pydantic import BaseModel
-import fitz  # PyMuPDF
-import pytesseract
-from PIL import Image
+
+try:  # Optional heavy dependency for PDF parsing
+    import fitz  # type: ignore  # PyMuPDF
+except ImportError:  # pragma: no cover - availability depends on host env
+    fitz = None
+
+try:  # Optional OCR stack
+    import pytesseract  # type: ignore
+except ImportError:  # pragma: no cover - availability depends on host env
+    pytesseract = None
+
+try:
+    from PIL import Image  # type: ignore
+except ImportError:  # pragma: no cover - availability depends on host env
+    Image = None
 
 router = APIRouter()
 
@@ -23,6 +39,13 @@ def list_reports() -> List[ReportOut]:
 
 @router.post("/upload", response_model=ReportOut)
 async def upload_report(request: Request, file: UploadFile = File(...)):
+    if fitz is None:
+        raise HTTPException(
+            503,
+            "PDF processing is unavailable because PyMuPDF is not installed. "
+            "Install it with 'pip install pymupdf' to enable uploads.",
+        )
+
     if file.content_type not in ("application/pdf", "application/octet-stream", None):
         raise HTTPException(415, "Unsupported file type: must be application/pdf")
 
@@ -40,25 +63,31 @@ async def upload_report(request: Request, file: UploadFile = File(...)):
     
     ocr_ms = 0
     all_text = ""
-    for i in range(doc.page_count):
-        page = doc.load_page(i)
-        text = page.get_text("text") or ""
-        if text.strip():
-            all_text += text + "\n"
-        else:
-            # OCR fallback
-            try:
-                t_ocr = time.time()
-                pix = page.get_pixmap(dpi=200)
-                img = Image.open(io.BytesIO(pix.tobytes("png")))
-                ocr_text = pytesseract.image_to_string(img) or ""
-                ocr_ms += int((time.time() - t_ocr) * 1000)
-                all_text += ocr_text + "\n"
-            except Exception as e:
-                print(f"OCR failed for page {i}: {e}")
-                all_text += f"[OCR failed for page {i}]\n"
+    ocr_available = pytesseract is not None and Image is not None
+    page_count = doc.page_count
 
-    doc.close()
+    try:
+        for i in range(page_count):
+            page = doc.load_page(i)
+            text = page.get_text("text") or ""
+            if text.strip():
+                all_text += text + "\n"
+            elif ocr_available:
+                # OCR fallback
+                try:
+                    t_ocr = time.time()
+                    pix = page.get_pixmap(dpi=200)
+                    img = Image.open(io.BytesIO(pix.tobytes("png")))
+                    ocr_text = pytesseract.image_to_string(img) or ""
+                    ocr_ms += int((time.time() - t_ocr) * 1000)
+                    all_text += ocr_text + "\n"
+                except Exception as e:
+                    print(f"OCR failed for page {i}: {e}")
+                    all_text += f"[OCR failed for page {i}]\n"
+            else:
+                all_text += f"[OCR unavailable for page {i}: install Pillow and pytesseract]\n"
+    finally:
+        doc.close()
 
     rid = str(uuid.uuid4())
     try:
@@ -67,7 +96,7 @@ async def upload_report(request: Request, file: UploadFile = File(...)):
     except Exception as e:
         print(f"Failed to save report text: {e}")
 
-    rec = {"id": rid, "filename": file.filename, "pages": doc.page_count, "text_len": len(all_text)}
+    rec = {"id": rid, "filename": file.filename, "pages": page_count, "text_len": len(all_text)}
     REPORTS.append(rec)
 
     elapsed_ms = int((time.time() - t0) * 1000)
@@ -76,7 +105,7 @@ async def upload_report(request: Request, file: UploadFile = File(...)):
         "event": "report_uploaded",
         "req_id": request.headers.get("X-Request-ID"),
         "filename": file.filename,
-        "pages": doc.page_count,
+        "pages": page_count,
         "text_len": len(all_text),
         "ocr_ms": ocr_ms,
         "total_ms": elapsed_ms,

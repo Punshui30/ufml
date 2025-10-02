@@ -1,5 +1,4 @@
 import sys
-import types
 from pathlib import Path
 
 from fastapi import FastAPI, Request
@@ -9,13 +8,9 @@ if __package__ in (None, ""):
     package_path = Path(__file__).resolve().parent
     parent_path = package_path.parent
 
-    apps_pkg = sys.modules.setdefault("apps", types.ModuleType("apps"))
-    if not getattr(apps_pkg, "__path__", None):
-        apps_pkg.__path__ = [str(parent_path)]
-
-    api_pkg = sys.modules.setdefault("apps.api", types.ModuleType("apps.api"))
-    if not getattr(api_pkg, "__path__", None):
-        api_pkg.__path__ = [str(package_path)]
+    parent_str = str(parent_path)
+    if parent_str not in sys.path:
+        sys.path.insert(0, parent_str)
 
     __package__ = "apps.api"
 
