@@ -65,6 +65,7 @@ async def upload_report(request: Request, file: UploadFile = File(...)):
                 print(f"OCR failed for page {i}: {e}")
                 all_text += f"[OCR failed for page {i}]\n"
 
+    page_count = doc.page_count
     doc.close()
 
     rid = str(uuid.uuid4())
@@ -74,7 +75,7 @@ async def upload_report(request: Request, file: UploadFile = File(...)):
     except Exception as e:
         print(f"Failed to save report text: {e}")
 
-    rec = {"id": rid, "filename": file.filename, "pages": doc.page_count, "text_len": len(all_text)}
+    rec = {"id": rid, "filename": file.filename, "pages": page_count, "text_len": len(all_text)}
     REPORTS.append(rec)
 
     elapsed_ms = int((time.time() - t0) * 1000)
@@ -83,7 +84,7 @@ async def upload_report(request: Request, file: UploadFile = File(...)):
         "event": "report_uploaded",
         "req_id": request.headers.get("X-Request-ID"),
         "filename": file.filename,
-        "pages": doc.page_count,
+        "pages": page_count,
         "text_len": len(all_text),
         "ocr_ms": ocr_ms,
         "total_ms": elapsed_ms,
