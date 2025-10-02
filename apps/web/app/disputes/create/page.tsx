@@ -202,9 +202,8 @@ export default function CreateDispute() {
   const fetchReportData = async (reportId: string) => {
     try {
       // Get the AI analysis for this report
-      const analysisResponse = await api('/reports/analyze', {
-        method: 'POST',
-        body: JSON.stringify({ report_id: reportId })
+      const analysisResponse = await api(`/reports/analyze?report_id=${reportId}`, {
+        method: 'POST'
       });
       
       // Also get the basic report data
@@ -222,11 +221,11 @@ export default function CreateDispute() {
       // NO FALLBACKS - Only use real AI analysis
       
       // Auto-populate dispute suggestions based on REAL AI analysis
-      if (combinedResponse.parsed_json && combinedResponse.parsed_json.dispute_opportunities && combinedResponse.parsed_json.dispute_opportunities.length > 0) {
+      if (analysisResponse.parsed_json && analysisResponse.parsed_json.dispute_opportunities && analysisResponse.parsed_json.dispute_opportunities.length > 0) {
         const suggestions: DisputeSuggestion[] = [];
         
         // Use the AI's actual dispute opportunities
-        combinedResponse.parsed_json.dispute_opportunities.forEach((dispute: any) => {
+        analysisResponse.parsed_json.dispute_opportunities.forEach((dispute: any) => {
           suggestions.push({
             account_name: dispute.account_name || 'Credit Account',
             creditor: dispute.creditor || 'Unknown Creditor',
@@ -235,13 +234,13 @@ export default function CreateDispute() {
             reason_description: dispute.reason_description || 'Dispute account information',
             confidence_score: dispute.confidence_score || dispute.success_probability || 0.8,
             suggested_narrative: dispute.suggested_narrative || 'I dispute the accuracy of this account information. Please verify and correct any inaccuracies.',
-            bureau: combinedResponse.bureau
+            bureau: analysisResponse.bureau || 'Credit Bureau'
           });
         });
         
         // Also add E Oscar bypass strategies
-        if (response.parsed_json.e_oscar_bypass_strategies) {
-          response.parsed_json.e_oscar_bypass_strategies.forEach((strategy: any) => {
+        if (analysisResponse.parsed_json?.e_oscar_bypass_strategies) {
+          analysisResponse.parsed_json.e_oscar_bypass_strategies.forEach((strategy: any) => {
             suggestions.push({
               account_name: 'E Oscar Bypass',
               creditor: 'Credit Bureau',
@@ -250,14 +249,14 @@ export default function CreateDispute() {
               reason_description: strategy.description || 'E Oscar bypass strategy',
               confidence_score: strategy.success_rate || 0.85,
               suggested_narrative: strategy.technique || 'Implementing advanced dispute validation bypass technique.',
-              bureau: combinedResponse.bureau
+              bureau: analysisResponse.bureau || 'Credit Bureau'
             });
           });
         }
         
         // Add factual dispute opportunities
-        if (response.parsed_json.factual_disputes) {
-          response.parsed_json.factual_disputes.forEach((dispute: any) => {
+        if (analysisResponse.parsed_json?.factual_disputes) {
+          analysisResponse.parsed_json.factual_disputes.forEach((dispute: any) => {
             suggestions.push({
               account_name: dispute.account || 'Factual Dispute',
               creditor: dispute.account || 'Credit Bureau',
@@ -267,14 +266,14 @@ export default function CreateDispute() {
               reason_description: `${dispute.discrepancy_type}: ${dispute.dispute_reason}`,
               confidence_score: 0.85,
               suggested_narrative: `Disputing ${dispute.discrepancy_type} discrepancy: ${dispute.dispute_reason}`,
-              bureau: combinedResponse.bureau
+              bureau: analysisResponse.bureau || 'Credit Bureau'
             });
           });
         }
 
-        // Add legal dispute opportunities
-        if (response.parsed_json.legal_disputes) {
-          response.parsed_json.legal_disputes.forEach((dispute: any) => {
+        // Add legal dispute opportunities  
+        if (analysisResponse.parsed_json?.legal_disputes) {
+          analysisResponse.parsed_json.legal_disputes.forEach((dispute: any) => {
             suggestions.push({
               account_name: dispute.account || 'Legal Violation',
               creditor: dispute.account || 'Creditor',
@@ -284,14 +283,14 @@ export default function CreateDispute() {
               reason_description: `${dispute.violation_type}: ${dispute.specific_violation}`,
               confidence_score: 0.90,
               suggested_narrative: `Legal violation of ${dispute.violation_type}. ${dispute.dispute_strategy}`,
-              bureau: combinedResponse.bureau
+              bureau: analysisResponse.bureau || 'Credit Bureau'
             });
           });
         }
 
         // Add procedural dispute opportunities
-        if (response.parsed_json.procedural_disputes) {
-          response.parsed_json.procedural_disputes.forEach((dispute: any) => {
+        if (analysisResponse.parsed_json?.procedural_disputes) {
+          analysisResponse.parsed_json.procedural_disputes.forEach((dispute: any) => {
             suggestions.push({
               account_name: dispute.account || 'Procedural Error',
               creditor: dispute.account || 'Bureau',
@@ -301,14 +300,14 @@ export default function CreateDispute() {
               reason_description: `${dispute.procedural_error}: ${dispute.dispute_reason}`,
               confidence_score: dispute.success_likelihood || 0.75,
               suggested_narrative: `Procedural error: ${dispute.procedural_error}. Metro2 violation: ${dispute.metro2_violation}`,
-              bureau: combinedResponse.bureau
+              bureau: analysisResponse.bureau || 'Credit Bureau'
             });
           });
         }
 
         // Add equity dispute opportunities
-        if (response.parsed_json.equity_disputes) {
-          response.parsed_json.equity_disputes.forEach((dispute: any) => {
+        if (analysisResponse.parsed_json?.equity_disputes) {
+          analysisResponse.parsed_json.equity_disputes.forEach((dispute: any) => {
             suggestions.push({
               account_name: dispute.account || 'Equity Dispute',
               creditor: dispute.account || 'Creditor',
@@ -318,14 +317,14 @@ export default function CreateDispute() {
               reason_description: `${dispute.hardship_type}: ${dispute.equity_argument}`,
               confidence_score: 0.70,
               suggested_narrative: `Equity dispute due to ${dispute.hardship_type}. ${dispute.goodwill_approach}`,
-              bureau: combinedResponse.bureau
+              bureau: analysisResponse.bureau || 'Credit Bureau'
             });
           });
         }
 
         // Add E-Oscar workarounds
-        if (response.parsed_json.e_oscar_workarounds) {
-          response.parsed_json.e_oscar_workarounds.forEach((workaround: any) => {
+        if (analysisResponse.parsed_json?.e_oscar_workarounds) {
+          analysisResponse.parsed_json.e_oscar_workarounds.forEach((workaround: any) => {
             suggestions.push({
               account_name: workaround.account || 'E-Oscar Bypass',
               creditor: workaround.account || 'Creditor',
@@ -335,14 +334,14 @@ export default function CreateDispute() {
               reason_description: `${workaround.bypass_strategy}: ${workaround.bypass_reason}`,
               confidence_score: workaround.success_rate || 0.80,
               suggested_narrative: `E-Oscar bypass using ${workaround.bypass_strategy}. ${workaround.dispute_approach}`,
-              bureau: combinedResponse.bureau
+              bureau: analysisResponse.bureau || 'Credit Bureau'
             });
           });
         }
 
         // Add Metro2 compliance issues
-        if (response.parsed_json.metro2_compliance_issues) {
-          response.parsed_json.metro2_compliance_issues.forEach((violation: any) => {
+        if (analysisResponse.parsed_json?.metro2_compliance_issues) {
+          analysisResponse.parsed_json.metro2_compliance_issues.forEach((violation: any) => {
             suggestions.push({
               account_name: violation.account || 'Metro2 Violation',
               creditor: violation.account || 'Bureau',
@@ -352,14 +351,14 @@ export default function CreateDispute() {
               reason_description: `${violation.violation_code}: ${violation.violation_description}`,
               confidence_score: 0.85,
               suggested_narrative: `Metro2 compliance violation: ${violation.violation_code}. ${violation.dispute_opportunity}`,
-              bureau: combinedResponse.bureau
+              bureau: analysisResponse.bureau || 'Credit Bureau'
             });
           });
         }
         
         // Add consumer law violations
-        if (response.parsed_json.consumer_law_violations) {
-          response.parsed_json.consumer_law_violations.forEach((violation: any) => {
+        if (analysisResponse.parsed_json?.consumer_law_violations) {
+          analysisResponse.parsed_json.consumer_law_violations.forEach((violation: any) => {
             suggestions.push({
               account_name: 'Consumer Law Violation',
               creditor: 'Creditor/Bureau',
@@ -368,7 +367,7 @@ export default function CreateDispute() {
               reason_description: `${violation.law} violation: ${violation.violations?.join(', ') || 'Legal violation'}`,
               confidence_score: violation.success_rate || 0.90,
               suggested_narrative: `Violation of ${violation.law}. Penalties: ${violation.penalties || 'Legal remedies available'}`,
-              bureau: combinedResponse.bureau
+              bureau: analysisResponse.bureau || 'Credit Bureau'
             });
           });
         }
