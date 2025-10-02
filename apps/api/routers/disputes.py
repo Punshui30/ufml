@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import Optional
 
 router = APIRouter()
 
@@ -21,8 +21,8 @@ class Dispute(BaseModel):
 DISPUTES = []
 
 @router.get("")
-def list_disputes() -> List[Dispute]:
-    return [Dispute(**dispute) for dispute in DISPUTES]
+def list_disputes() -> dict:
+    return {"disputes": [Dispute(**dispute) for dispute in DISPUTES]}
 
 @router.post("")
 def create_dispute(dispute: Dispute):
