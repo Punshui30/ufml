@@ -1,13 +1,22 @@
 import sys
+import types
 from pathlib import Path
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 
 if __package__ in (None, ""):
-    package_root = Path(__file__).resolve().parents[2]
-    if str(package_root) not in sys.path:
-        sys.path.insert(0, str(package_root))
+    package_path = Path(__file__).resolve().parent
+    parent_path = package_path.parent
+
+    apps_pkg = sys.modules.setdefault("apps", types.ModuleType("apps"))
+    if not getattr(apps_pkg, "__path__", None):
+        apps_pkg.__path__ = [str(parent_path)]
+
+    api_pkg = sys.modules.setdefault("apps.api", types.ModuleType("apps.api"))
+    if not getattr(api_pkg, "__path__", None):
+        api_pkg.__path__ = [str(package_path)]
+
     __package__ = "apps.api"
 
 from .routers import reports
