@@ -22,6 +22,7 @@ interface DisputeSuggestion {
   confidence_score: number;
   suggested_narrative: string;
   bureau: string;
+  dispute_category?: string;
 }
 
 interface CreditAccount {
@@ -169,7 +170,7 @@ export default function CreateDispute() {
         
         setFormData(prev => ({
           ...prev,
-          bureau: bestDispute.bureau || combinedResponse.summary?.bureau || 'Credit Bureau',
+          bureau: bestDispute.bureau || 'Credit Bureau',
           reason_code: bestDispute.reason_code || bestDispute.reason_description || 'AI-Generated Dispute',
           account_details: `${bestDispute.creditor || bestDispute.account_name || 'Credit Account'} - ${bestDispute.account_type || 'Account'}`,
           additional_details: bestDispute.suggested_narrative || `I dispute the accuracy of the information reported for my ${bestDispute.account_name || 'credit account'}. ${bestDispute.reason_description || 'This information is inaccurate and violates FCRA requirements for accuracy.'} Please investigate and correct this information immediately.`
@@ -462,7 +463,7 @@ export default function CreateDispute() {
       window.location.href = '/disputes';
     } catch (error) {
       console.error('Failed to create dispute:', error);
-      alert(`Failed to create dispute: ${error.message}`);
+      alert(`Failed to create dispute: ${error instanceof Error ? error.message : 'Unknown error'}`);
     } finally {
       setSubmitting(false);
     }

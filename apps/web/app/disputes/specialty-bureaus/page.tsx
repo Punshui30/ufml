@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Building2, Target, Zap, Shield, CheckCircle, AlertTriangle, Clock, FileText } from 'lucide-react';
-import { api } from '../../../lib/api';
+import { api } from '../../lib/api';
 
 interface SpecialtyBureau {
   id: string;
