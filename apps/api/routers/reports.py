@@ -1,5 +1,6 @@
 import io, uuid, time, json
-from typing import List
+from datetime import datetime
+from typing import List, Optional
 from fastapi import APIRouter, UploadFile, File, HTTPException, Request
 from pydantic import BaseModel
 import fitz  # PyMuPDF
@@ -16,10 +17,41 @@ class ReportOut(BaseModel):
     filename: str
     pages: int
     text_len: int
+    created_at: Optional[str] = None
+    has_parsed_data: bool = False
+    user_id: Optional[str] = None
+    bureau: Optional[str] = None
+    report_date: Optional[str] = None
+
+def _with_defaults(report: dict) -> ReportOut:
+    """Ensure reports expose metadata the frontend expects."""
+    enriched = {
+        **report,
+        "created_at": report.get("created_at") or datetime.utcnow().isoformat() + "Z",
+        "has_parsed_data": report.get("has_parsed_data", bool(report.get("text_len"))),
+        "user_id": report.get("user_id") or "client_1759251660898",
+        "bureau": report.get("bureau") or _infer_bureau(report.get("filename")),
+        "report_date": report.get("report_date") or datetime.utcnow().isoformat() + "Z",
+    }
+    return ReportOut(**enriched)
+
+
+def _infer_bureau(filename: Optional[str]) -> Optional[str]:
+    if not filename:
+        return None
+    lowered = filename.lower()
+    if "equifax" in lowered:
+        return "Equifax"
+    if "experian" in lowered:
+        return "Experian"
+    if "transunion" in lowered:
+        return "TransUnion"
+    return "Unknown"
+
 
 @router.get("")
-def list_reports() -> List[ReportOut]:
-    return [ReportOut(**r) for r in REPORTS]
+def list_reports() -> dict:
+    return {"reports": [_with_defaults(r) for r in REPORTS]}
 
 @router.post("/upload", response_model=ReportOut)
 async def upload_report(request: Request, file: UploadFile = File(...)):
@@ -67,7 +99,18 @@ async def upload_report(request: Request, file: UploadFile = File(...)):
     except Exception as e:
         print(f"Failed to save report text: {e}")
 
-    rec = {"id": rid, "filename": file.filename, "pages": doc.page_count, "text_len": len(all_text)}
+    now_iso = datetime.utcnow().isoformat() + "Z"
+    rec = {
+        "id": rid,
+        "filename": file.filename,
+        "pages": doc.page_count,
+        "text_len": len(all_text),
+        "created_at": now_iso,
+        "report_date": now_iso,
+        "has_parsed_data": bool(all_text.strip()),
+        "user_id": request.headers.get("X-User-ID") or "client_1759251660898",
+        "bureau": _infer_bureau(file.filename),
+    }
     REPORTS.append(rec)
 
     elapsed_ms = int((time.time() - t0) * 1000)
