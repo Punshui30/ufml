@@ -253,9 +253,8 @@ export default function ReportDetail() {
 
   const parseReport = async () => {
     try {
-      await api(`/reports/${reportId}/parse`, {
-        method: 'POST',
-        body: JSON.stringify({})
+      await api(`/reports/analyze?report_id=${reportId}`, {
+        method: 'POST'
       });
       // Refresh report data
       fetchReportDetails();
