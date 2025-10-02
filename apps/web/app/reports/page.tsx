@@ -36,9 +36,9 @@ export default function Reports() {
         bureau: report.filename?.includes('Equifax') ? 'Equifax' : 
                 report.filename?.includes('Experian') ? 'Experian' : 
                 report.filename?.includes('TransUnion') ? 'TransUnion' : 'Unknown',
-        report_date: new Date().toISOString(),
+        report_date: report.created_at || new Date().toISOString(),
         has_parsed_data: report.text_len > 0,
-        created_at: new Date().toISOString()
+        created_at: report.created_at || new Date().toISOString()
       }));
       
       setReports(mappedReports);
@@ -141,7 +141,7 @@ export default function Reports() {
               ) : (
                 <div style={{display: 'flex', flexDirection: 'column', gap: 'var(--space-4)'}}>
                   {reports.map((report) => (
-                    <div key={report.id} style={{display: 'grid', gridTemplateColumns: '1fr 120px 120px 120px 100px', gap: 'var(--space-4)', padding: 'var(--space-4)', background: 'var(--gray-50)', borderRadius: 'var(--radius)', alignItems: 'center'}}>
+                    <div key={report.id} style={{display: 'grid', gridTemplateColumns: '1fr 120px 120px 120px 100px 100px', gap: 'var(--space-4)', padding: 'var(--space-4)', background: 'var(--gray-50)', borderRadius: 'var(--radius)', alignItems: 'center'}}>
                       <div>
                         <strong>{report.bureau} Report</strong>
                         <div style={{color: 'var(--gray-600)', fontSize: '0.875rem'}}>
@@ -158,6 +158,14 @@ export default function Reports() {
                       <a href={`/reports/${report.id}`} className="btn btn-secondary" style={{fontSize: '0.75rem', padding: 'var(--space-2)'}}>
                         View
                       </a>
+                      <button 
+                        onClick={() => deleteReport(report.id)}
+                        className="btn btn-danger" 
+                        style={{fontSize: '0.75rem', padding: 'var(--space-2)', display: 'flex', alignItems: 'center', gap: '0.25rem'}}
+                      >
+                        <Trash2 className="w-3 h-3" />
+                        Delete
+                      </button>
                     </div>
                   ))}
                 </div>

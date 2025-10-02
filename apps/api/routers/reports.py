@@ -1,4 +1,5 @@
 import io, uuid, time, json
+from datetime import datetime
 from typing import List
 from fastapi import APIRouter, UploadFile, File, HTTPException, Request
 from pydantic import BaseModel
@@ -12,6 +13,10 @@ router = APIRouter()
 try:
     with open("./apps/api/reports.json", "r", encoding="utf-8") as f:
         REPORTS = json.load(f)
+        # Add created_at to existing reports that don't have it
+        for report in REPORTS:
+            if "created_at" not in report:
+                report["created_at"] = datetime.now().isoformat()
         print(f"Loaded {len(REPORTS)} reports from JSON file")
 except FileNotFoundError:
     REPORTS = []  # in-memory for dev
@@ -23,6 +28,7 @@ class ReportOut(BaseModel):
     filename: str
     pages: int
     text_len: int
+    created_at: str
 
 @router.get("")
 def list_reports() -> List[ReportOut]:
@@ -75,7 +81,7 @@ async def upload_report(request: Request, file: UploadFile = File(...)):
     except Exception as e:
         print(f"Failed to save report text: {e}")
 
-    rec = {"id": rid, "filename": file.filename, "pages": page_count, "text_len": len(all_text)}
+    rec = {"id": rid, "filename": file.filename, "pages": page_count, "text_len": len(all_text), "created_at": datetime.now().isoformat()}
     REPORTS.append(rec)
 
     elapsed_ms = int((time.time() - t0) * 1000)
