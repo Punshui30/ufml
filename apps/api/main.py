@@ -1,10 +1,16 @@
+import sys
+from pathlib import Path
+
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 
-try:
-    from .routers import reports
-except ImportError:  # pragma: no cover - fallback for direct module execution
-    from routers import reports
+if __package__ in (None, ""):
+    package_root = Path(__file__).resolve().parents[2]
+    if str(package_root) not in sys.path:
+        sys.path.insert(0, str(package_root))
+    __package__ = "apps.api"
+
+from .routers import reports
 
 app = FastAPI(title="UFML API", version="0.1.0")
 
