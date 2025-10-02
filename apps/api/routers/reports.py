@@ -8,7 +8,14 @@ from PIL import Image
 
 router = APIRouter()
 
-REPORTS = []  # in-memory for dev
+# Load reports from JSON file on startup
+try:
+    with open("./apps/api/reports.json", "r", encoding="utf-8") as f:
+        REPORTS = json.load(f)
+        print(f"Loaded {len(REPORTS)} reports from JSON file")
+except FileNotFoundError:
+    REPORTS = []  # in-memory for dev
+    print("No reports.json file found, starting with empty list")
 MAX_BYTES = 10 * 1024 * 1024  # 10MB
 
 class ReportOut(BaseModel):
