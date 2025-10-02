@@ -28,7 +28,7 @@ def ai_health() -> Dict[str, Any]:
             "health": health_info,
             "model_info": model_info,
             "recommendations": {
-                "model": "llama3.1:8b-instruct",
+                "model": "llama3.2:3b",
                 "quant": "q4_K_M",
                 "ram_required": "6-8GB",
                 "alternative": "llama3.2:3b-instruct (for low RAM)"

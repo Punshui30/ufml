@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 class OllamaClient:
     def __init__(self):
         self.host = os.getenv("OLLAMA_HOST", "http://127.0.0.1:11434")
-        self.model = os.getenv("OLLAMA_MODEL", "llama3.1:8b-instruct")
+        self.model = os.getenv("OLLAMA_MODEL", "llama3.2:3b")
         self.timeout = int(os.getenv("OLLAMA_TIMEOUT_SECONDS", "20"))
         self.connect_timeout = 2
         self.max_retries = 2
@@ -175,7 +175,7 @@ class OllamaClient:
             "configured_model": self.model,
             "available_models": models,
             "model_available": self.model in models,
-            "recommended_model": "llama3.1:8b-instruct",
+            "recommended_model": "llama3.2:3b",
             "recommended_quant": "q4_K_M"
         }
 
