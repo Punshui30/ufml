@@ -3,17 +3,19 @@
 import sys
 import os
 
-# Add the apps/api directory to the Python path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'apps', 'api'))
+# Add the apps directory to the Python path so we can import packages cleanly
+API_ROOT = os.path.join(os.path.dirname(__file__), 'apps')
+if API_ROOT not in sys.path:
+    sys.path.insert(0, API_ROOT)
 
 try:
     print("Testing backend imports...")
     
     # Test basic imports
-    import main
-    print("OK: main.py imports successfully")
-    
-    from main import app
+    from apps.api import main
+    print("OK: apps.api.main imports successfully")
+
+    from apps.api.main import app
     print("OK: FastAPI app imports successfully")
     
     # Test if we can create the app

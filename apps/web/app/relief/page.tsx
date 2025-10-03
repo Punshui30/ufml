@@ -111,7 +111,7 @@ export default function ReliefFinder() {
         <div className="container">
           <div className="navbar-content">
             <a href="/" className="navbar-brand">
-              <img src="/logo.png" alt="Credit Hardar Logo" />
+              <img src="/ufml-logo.svg" alt="UFML" />
               Credit Hardar
             </a>
             <ul className="navbar-nav">

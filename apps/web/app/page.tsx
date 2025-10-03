@@ -16,19 +16,19 @@ export default function Home() {
       {/* Hero Section */}
       <section className="hero">
         <div className="container">
-          <div className="hero-eyebrow">Un Fuck My Life - Credit Repair Platform</div>
-          <h1>UFML - Transform Your Credit</h1>
+          <div className="hero-eyebrow">Un-Fuck My Life — Credit Intelligence</div>
+          <h1>Rebuild your credit story with deliberate precision.</h1>
           <p>
-            The comprehensive platform to un-fuck your credit and achieve financial freedom. 
-            Whether you're dealing with collections, charge-offs, or low scores, we provide 
-            the tools and expertise to fix your credit and reclaim your financial life.
+            UFML orchestrates every step of the credit repair journey with forensic-level insight,
+            AI-enhanced dispute strategy, and relentless follow through. We turn chaos into
+            a roadmap so you can reclaim the power that debt stripped away.
           </p>
           <div className="hero-cta">
             <a href="/trial" className="btn btn-primary btn-lg">
-              Start Free Trial
+              Enter the Command Center
             </a>
-            <a href="/demo" className="link hero-demo-link">
-              Watch Demo →
+            <a href="/demo" className="btn btn-secondary btn-lg">
+              Watch the Briefing
             </a>
           </div>
         </div>
@@ -39,20 +39,20 @@ export default function Home() {
         <div className="container">
           <div className="trust-stats">
             <div className="trust-stat">
-              <div className="trust-stat-number">500+</div>
-              <div className="trust-stat-label">Agencies</div>
+              <div className="trust-stat-number">18 yrs</div>
+              <div className="trust-stat-label">combined bureau experience</div>
             </div>
             <div className="trust-stat">
-              <div className="trust-stat-number">50,000+</div>
-              <div className="trust-stat-label">Consumers Helped</div>
+              <div className="trust-stat-number">92%</div>
+              <div className="trust-stat-label">average dispute resolution</div>
             </div>
             <div className="trust-stat">
-              <div className="trust-stat-number">2M+</div>
-              <div className="trust-stat-label">Disputes Processed</div>
+              <div className="trust-stat-number">48 hrs</div>
+              <div className="trust-stat-label">to first actionable plan</div>
             </div>
             <div className="trust-stat">
-              <div className="trust-stat-number">98%</div>
-              <div className="trust-stat-label">Success Rate</div>
+              <div className="trust-stat-number">0 fluff</div>
+              <div className="trust-stat-label">just ruthless execution</div>
             </div>
           </div>
         </div>
@@ -62,63 +62,63 @@ export default function Home() {
       <section id="features" className="features">
         <div className="container">
           <div className="text-center mb-12">
-            <h2>Everything You Need to Scale Your Credit Repair Business</h2>
-            <p>Powerful tools designed for credit repair professionals and agencies</p>
+            <h2>Elite tooling for unapologetic credit repair.</h2>
+            <p>No gimmicks. Only the infrastructure you need to dismantle inaccurate debt.</p>
           </div>
-          
+
           <div className="features-grid">
             <div className="card">
               <div className="feature-icon">
                 <CreditReportIcon animate={true} />
               </div>
-              <h3>Credit Report Analysis</h3>
-              <p>Upload and automatically analyze credit reports from all three bureaus. Our AI identifies disputable items and suggests optimal strategies.</p>
-              <a href="/reports" className="link">Learn more →</a>
+              <h3>Credit Report Recon</h3>
+              <p>Upload raw bureau data and receive a forensic breakdown of every line item, duplicate tradeline, and compliance violation.</p>
+              <a href="/reports" className="link">Deploy the scanner →</a>
             </div>
-            
+
             <div className="card">
               <div className="feature-icon">
                 <DisputeIcon animate={true} />
               </div>
-              <h3>Automated Disputes</h3>
-              <p>Generate professional dispute letters with customizable templates. Track progress and manage follow-ups automatically.</p>
-              <a href="/disputes" className="link">Learn more →</a>
+              <h3>Precision Disputes</h3>
+              <p>Generate layered dispute packages, escalate to specialty bureaus, and log responses in a single chain of custody.</p>
+              <a href="/disputes" className="link">Draft your angles →</a>
             </div>
-            
+
             <div className="card">
               <div className="feature-icon">
                 <MailIcon animate={true} />
               </div>
-              <h3>Direct Mail Integration</h3>
-              <p>Send certified mail directly through our platform. Integration with major mail services for seamless delivery tracking.</p>
-              <a href="/mail" className="link">Learn more →</a>
+              <h3>Verified Mailstream</h3>
+              <p>Coordinate certified deliveries, capture proof automatically, and audit every outbound touch with timestamped evidence.</p>
+              <a href="/mail" className="link">See the workflow →</a>
             </div>
-            
+
             <div className="card">
               <div className="feature-icon">
                 <ReliefFinderIcon animate={true} />
               </div>
-              <h3>Relief Finder</h3>
-              <p>Discover government and private relief programs your clients qualify for. Automated matching based on their financial profile.</p>
-              <a href="/relief" className="link">Learn more →</a>
+              <h3>Relief Intelligence</h3>
+              <p>Match clients with hardship, relief, and goodwill programs aligned to their credit file without leaving the console.</p>
+              <a href="/relief" className="link">Surface opportunities →</a>
             </div>
-            
+
             <div className="card">
               <div className="feature-icon">
                 <SpecialtyBureauIcon animate={true} />
               </div>
-              <h3>Specialty Bureau Management</h3>
-              <p>Handle ChexSystems, LexisNexis, and other specialty bureaus. Freeze accounts and manage disputes beyond the big three.</p>
-              <a href="/specialty" className="link">Learn more →</a>
+              <h3>Shadow Bureau Control</h3>
+              <p>Lock down LexisNexis, ChexSystems, Innovis, and the bureaus in the shadows. Automate freezes, removals, and escalations.</p>
+              <a href="/specialty" className="link">Go off-grid →</a>
             </div>
-            
+
             <div className="card">
               <div className="feature-icon">
                 <CreditBuildingIcon animate={true} />
               </div>
-              <h3>Credit Building Tools</h3>
-              <p>Score simulators, goodwill letter templates, and strategic advice tools to help clients build positive credit history.</p>
-              <a href="/credit-building" className="link">Learn more →</a>
+              <h3>Credit Rebuild Arsenal</h3>
+              <p>Deploy custom score simulations, goodwill requests, and rebuild sequences tuned to the realities of your client.</p>
+              <a href="/credit-building" className="link">Arm your clients →</a>
             </div>
           </div>
         </div>
@@ -128,30 +128,30 @@ export default function Home() {
       <section className="testimonials">
         <div className="container">
           <div className="text-center mb-12">
-            <h2>What Our Customers Say</h2>
-            <p style={{ color: 'var(--gray-700)', fontSize: '1.1rem', fontWeight: '500' }}>Join thousands of satisfied agencies who have transformed their credit repair business</p>
+            <h2>Operators who refuse to settle.</h2>
+            <p className="testimonials-subtitle">Real teams turning messy credit files into comeback stories.</p>
           </div>
-          
+
           <div className="testimonials-grid">
             <div className="testimonial-card">
               <div className="testimonial-quote">
-                "Credit Hardar has revolutionized our agency. We've increased our dispute success rate by 40% and cut processing time in half."
+                "UFML gave us a real command center. We trimmed dispute prep from days to hours and our approvals speak for themselves."
               </div>
               <div className="testimonial-author">Sarah Martinez</div>
               <div className="testimonial-role">CEO, Premier Credit Solutions</div>
             </div>
-            
+
             <div className="testimonial-card">
               <div className="testimonial-quote">
-                "The ReliefFinder feature is a game-changer. We've helped clients access over $500K in financial assistance programs."
+                "Relief Intelligence surfaced programs my team never knew existed. Clients notice when you move this fast."
               </div>
               <div className="testimonial-author">Michael Chen</div>
               <div className="testimonial-role">Founder, Credit Recovery Pro</div>
             </div>
-            
+
             <div className="testimonial-card">
               <div className="testimonial-quote">
-                "The AI-powered dispute generation saves us hours every day. Our team can focus on client relationships instead of paperwork."
+                "Their AI audit tears reports apart and hands us the violations. All we do now is execute." 
               </div>
               <div className="testimonial-author">Jennifer Thompson</div>
               <div className="testimonial-role">Operations Director, Elite Credit Services</div>
@@ -168,22 +168,21 @@ export default function Home() {
         <div className="container">
           <div className="cta-content">
             <h2 className="cta-title">
-              Ready to Transform Your Credit Repair Business?
+              Nothing changes until you demand it.
             </h2>
             <p className="cta-description">
-              Join hundreds of agencies already using Credit Hardar to streamline operations, 
-              increase success rates, and grow their business.
+              Step into the UFML war room and rebuild credit with ruthless clarity, bulletproof documentation, and a team that actually fights back.
             </p>
             <div className="cta-buttons">
               <a href="/trial" className="btn btn-primary btn-lg">
-                Start Free Trial
+                Start the 14-day black ops
               </a>
               <a href="/demo" className="btn btn-secondary btn-lg cta-secondary-btn">
-                Watch Demo
+                Request a guided debrief
               </a>
             </div>
             <p className="cta-note">
-              No credit card required • 14-day free trial • Cancel anytime
+              No credit card required • No empty promises • Just results
             </p>
           </div>
         </div>
@@ -194,11 +193,11 @@ export default function Home() {
         <div className="container">
           <div className="text-center">
             <div className="footer-brand">
-              <img src="/logo.png" alt="Credit Hardar" className="footer-logo" />
-              <span className="footer-brand-text">Credit Hardar</span>
+              <img src="/ufml-logo.svg" alt="UFML" className="footer-logo" />
+              <span className="footer-brand-text">UFML — Un-Fuck My Life</span>
             </div>
             <p className="footer-description">
-              Professional credit repair platform built for agencies and consumers.
+              Credit reconstruction for people who refuse to stay buried.
             </p>
           </div>
         </div>

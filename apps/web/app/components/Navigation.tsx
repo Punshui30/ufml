@@ -20,7 +20,13 @@ export default function Navigation() {
       <div className="container">
         <div className="navbar-content">
           <a href="/" className="navbar-brand">
-            <img src="/ufml-logo.png" alt="UFML Logo" style={{ width: '128px', height: '128px' }} />
+            <span className="navbar-logo">
+              <img src="/ufml-logo.svg" alt="UFML" />
+            </span>
+            <span className="navbar-text">
+              <span className="navbar-title">UFML</span>
+              <span className="navbar-subtitle">Un-Fuck My Life</span>
+            </span>
           </a>
           <ul className="navbar-nav">
             <li><a href="/">Home</a></li>
@@ -45,19 +51,19 @@ export default function Navigation() {
                   </>
                 )}
                 <li>
-                  <button 
+                  <button
                     onClick={handleLogout}
                     style={{
-                      background: 'none',
-                      border: 'none',
-                      color: 'inherit',
+                      background: 'transparent',
+                      border: '1px solid var(--border)',
+                      color: 'var(--text)',
                       cursor: 'pointer',
                       padding: 'var(--space-2) var(--space-3)',
                       borderRadius: 'var(--radius)',
                       fontSize: 'inherit'
                     }}
                     onMouseOver={(e) => {
-                      e.currentTarget.style.backgroundColor = 'var(--gray-100)';
+                      e.currentTarget.style.backgroundColor = 'var(--bg-tertiary)';
                     }}
                     onMouseOut={(e) => {
                       e.currentTarget.style.backgroundColor = 'transparent';

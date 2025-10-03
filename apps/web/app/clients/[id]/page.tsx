@@ -162,7 +162,7 @@ export default function ClientDetail() {
         <div className="container">
           <div className="navbar-content">
             <a href="/" className="navbar-brand">
-              <img src="/ufml-logo.png" alt="UFML Logo" style={{ width: '128px', height: '128px', marginRight: '1rem' }} />
+              <img src="/ufml-logo.svg" alt="UFML" style={{ width: '128px', height: '128px', marginRight: '1rem' }} />
               UFML
             </a>
             <ul className="navbar-nav">
