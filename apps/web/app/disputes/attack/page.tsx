@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Target, Shield, Zap, Mail, FileText, Clock, CheckCircle, AlertTriangle, Users, Building2 } from 'lucide-react';
-import { api } from '../../lib/api';
+import { api } from '../../api';
 
 interface DisputeTarget {
   id: string;

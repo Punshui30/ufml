@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Target, Clipboard, Link as LinkIcon, CreditCard, TrendingUp, AlertCircle } from 'lucide-react';
-import { api } from '../../lib/api';
+import { api } from '../../api';
 
 interface ConsumerStats {
   creditScore: number;

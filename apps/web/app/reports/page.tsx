@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Download, Plus, FileText, Trash2 } from 'lucide-react';
-import { api } from '../lib/api';
+import { api } from '../api';
 
 interface Report {
   id: string;

@@ -134,7 +134,11 @@ export default function DemoPage() {
       }
     `;
     document.head.appendChild(style);
-    return () => document.head.removeChild(style);
+    return () => {
+      if (style.parentNode) {
+        style.parentNode.removeChild(style);
+      }
+    };
   }, []);
   const [selectedDemo, setSelectedDemo] = useState<'b2b' | 'b2c' | null>(null);
   const [currentStep, setCurrentStep] = useState(0);

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { CheckCircle } from 'lucide-react';
-import { api } from '../../lib/api';
+import { api } from '../../api';
 
 interface MailRecipient {
   name: string;

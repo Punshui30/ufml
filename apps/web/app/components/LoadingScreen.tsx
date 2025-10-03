@@ -129,7 +129,6 @@ export default function LoadingScreen({ onComplete, duration = 5000 }: LoadingSc
         webkit-playsinline="true"
         x5-playsinline="true"
         x-webkit-airplay="allow"
-        allow="autoplay"
         onLoadedData={handleVideoLoad}
         onEnded={handleVideoEnd}
         onError={(e) => {

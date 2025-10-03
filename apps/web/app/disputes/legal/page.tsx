@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Scale, FileText, Shield, Gavel, AlertCircle, CheckCircle, Clock, BookOpen, Users, Building2 } from 'lucide-react';
-import { api } from '../../lib/api';
+import { api } from '../../api';
 
 interface LegalStrategy {
   id: string;

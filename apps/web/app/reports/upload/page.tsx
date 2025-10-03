@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { CONFIG } from '../../config';
-import { uploadPdf } from '../../lib/upload';
+import { uploadPdf } from '../../services/upload';
 
 interface Client {
   id: string;

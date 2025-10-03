@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Target } from 'lucide-react';
-import { api } from '../lib/api';
+import { api } from '../api';
 
 interface ReliefProgram {
   id: string;

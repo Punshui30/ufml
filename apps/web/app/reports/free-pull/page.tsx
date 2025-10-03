@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { CreditCard, Shield, Clock, Download, AlertCircle, CheckCircle, Upload, FileText, Camera, Brain, Target } from 'lucide-react';
-import { api } from '../../lib/api';
+import { api } from '../../api';
 
 interface BureauStatus {
   annual_credit_report: {
@@ -10,6 +10,8 @@ interface BureauStatus {
     last_pull: string | null;
     next_available: string;
     cost: string;
+    api_available?: boolean;
+    connected?: boolean;
   };
   experian: {
     connected: boolean;
@@ -37,6 +39,9 @@ interface PullResult {
   reports_pulled: Record<string, any>;
   next_available_date: string;
   instructions: any;
+  portal_integration_available?: boolean;
+  message?: string;
+  available_portals?: Array<{ name: string }>;
 }
 
 interface DocumentUpload {
