@@ -8,8 +8,8 @@ import { uploadPdf } from '../../services/upload';
 interface Client {
   id: string;
   email: string;
-  first_name: string;
-  last_name: string;
+  first_name?: string;
+  last_name?: string;
   created_at: string;
 }
 
@@ -114,11 +114,16 @@ export default function UploadReport() {
                     required
                   >
                     <option value="">Choose a client...</option>
-                    {clients.map((client) => (
-                      <option key={client.id} value={client.id}>
-                        {client.first_name} {client.last_name} ({client.email})
-                      </option>
-                    ))}
+                    {clients.map((client) => {
+                      const fullName = [client.first_name, client.last_name]
+                        .filter(Boolean)
+                        .join(' ');
+                      return (
+                        <option key={client.id} value={client.id}>
+                          {fullName ? `${fullName} (${client.email})` : client.email}
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
 
