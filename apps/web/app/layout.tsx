@@ -13,10 +13,13 @@ export default function RootLayout({
         <title>UFML - Un Fuck My Life</title>
         <meta name="description" content="UFML - Un Fuck My Life - Credit Repair & Financial Freedom" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/ufml-logo.png" />
-        <meta property="og:title" content="UFML - Un Fuck My Life" />
-        <meta property="og:description" content="UFML - Un Fuck My Life - Credit Repair & Financial Freedom" />
-        <meta property="og:image" content="/ufml-logo.png" />
+        <link rel="icon" href="/ufml-logo.svg" />
+        <meta property="og:title" content="UFML - Un-Fuck My Life" />
+        <meta
+          property="og:description"
+          content="UFML - Un-Fuck My Life | Elite credit repair intelligence for people ready to reclaim their story"
+        />
+        <meta property="og:image" content="/ufml-logo.svg" />
       </head>
       <body>
         <AuthProvider>

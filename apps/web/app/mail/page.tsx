@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { api } from '../lib/api';
+import { api } from '../api';
 
 interface MailServiceStatus {
   current_service: string;
@@ -54,7 +54,7 @@ export default function Mail() {
         <div className="container">
           <div className="navbar-content">
             <a href="/" className="navbar-brand">
-              <img src="/logo.png" alt="Credit Hardar Logo" />
+              <img src="/ufml-logo.svg" alt="UFML" />
               Credit Hardar
             </a>
             <ul className="navbar-nav">

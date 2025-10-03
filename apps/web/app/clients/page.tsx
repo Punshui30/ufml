@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { api } from '../lib/api';
+import { api } from '../api';
 
 interface Client {
   id: string;
@@ -54,7 +54,7 @@ export default function Clients() {
         <div className="container">
           <div className="navbar-content">
             <a href="/" className="navbar-brand">
-              <img src="/ufml-logo.png" alt="UFML Logo" style={{ width: '128px', height: '128px', marginRight: '1rem' }} />
+              <img src="/ufml-logo.svg" alt="UFML" style={{ width: '128px', height: '128px', marginRight: '1rem' }} />
               UFML
             </a>
             <ul className="navbar-nav">

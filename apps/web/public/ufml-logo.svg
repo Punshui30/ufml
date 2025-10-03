@@ -1,0 +1,22 @@
+<svg width="240" height="80" viewBox="0 0 240 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="shieldGradient" x1="10" y1="8" x2="58" y2="68" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.9" />
+      <stop offset="1" stop-color="#C8C8C8" stop-opacity="0.4" />
+    </linearGradient>
+  </defs>
+  <rect width="240" height="80" fill="none" />
+  <g filter="url(#shadow)">
+    <path d="M34 12L56 20V40C56 52.8 47.6 63.76 34 68C20.4 63.76 12 52.8 12 40V20L34 12Z" stroke="white" stroke-width="2" fill="url(#shieldGradient)" fill-opacity="0.15" />
+    <path d="M34 26L34 52" stroke="white" stroke-width="2" stroke-linecap="round" />
+    <path d="M24 34L34 24L44 34" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M24 44L34 34L44 44" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.8" />
+  </g>
+  <text x="76" y="38" fill="white" font-family="'Inter', 'Segoe UI', sans-serif" font-size="28" font-weight="700" letter-spacing="0.08em">UFML</text>
+  <text x="76" y="58" fill="#D1D1D1" font-family="'Inter', 'Segoe UI', sans-serif" font-size="14" letter-spacing="0.32em">UN-FUCK MY LIFE</text>
+  <defs>
+    <filter id="shadow" x="0" y="0" width="68" height="80" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000000" flood-opacity="0.45" />
+    </filter>
+  </defs>
+</svg>

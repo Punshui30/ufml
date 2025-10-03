@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { Suspense, useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Lightbulb, BarChart3 } from 'lucide-react';
-import { api } from '../../lib/api';
+import { api } from '../../api';
 
 interface Client {
   id: string;
@@ -51,7 +51,7 @@ interface ReliefRecommendation {
   source_url: string;
 }
 
-export default function CreateDispute() {
+function CreateDisputeContent() {
   const searchParams = useSearchParams();
   const [clients, setClients] = useState<Client[]>([]);
   const [loading, setLoading] = useState(true);
@@ -780,3 +780,12 @@ export default function CreateDispute() {
     </>
   );
 }
+
+export default function CreateDispute() {
+  return (
+    <Suspense fallback={<div style={{ padding: '2rem', textAlign: 'center' }}>Loading dispute workspace...</div>}>
+      <CreateDisputeContent />
+    </Suspense>
+  );
+}
+

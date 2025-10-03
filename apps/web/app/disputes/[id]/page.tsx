@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { X } from 'lucide-react';
-import { api } from '../../lib/api';
+import { api } from '../../api';
 
 
 interface Dispute {
@@ -157,7 +157,7 @@ export default function DisputeDetail() {
         <div className="container">
           <div className="navbar-content">
             <a href="/" className="navbar-brand">
-              <img src="/logo.png" alt="Credit Hardar Logo" />
+              <img src="/ufml-logo.svg" alt="UFML" />
               Credit Hardar
             </a>
             <ul className="navbar-nav">

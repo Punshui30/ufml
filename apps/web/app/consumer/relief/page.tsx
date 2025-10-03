@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Target, Heart, DollarSign, FileText } from 'lucide-react';
-import { api } from '../../lib/api';
+import { api } from '../../api';
 
 interface ReliefProgram {
   id: string;

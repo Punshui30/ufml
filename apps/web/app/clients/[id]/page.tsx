@@ -3,15 +3,18 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { X, BarChart3, Zap } from 'lucide-react';
-import { api } from '../../lib/api';
+import { api } from '../../api';
 
 
 interface Client {
   id: string;
   email: string;
+  first_name?: string;
+  last_name?: string;
   role: string;
   account_id: string | null;
   created_at: string;
+  phone?: string | null;
 }
 
 interface Report {
@@ -53,42 +56,23 @@ export default function ClientDetail() {
     try {
       setLoading(true);
       
-      // Try to fetch from backend first
-      try {
-        const clientsResponse = await api('/clients');
-        const clients = clientsResponse.clients || [];
-        const foundClient = clients.find((c: Client) => c.id === clientId);
-        
-        if (foundClient) {
-          setClient(foundClient);
-          return;
-        }
-      } catch (backendError) {
-        console.log('Backend not available, checking mock data');
-      }
-      
-      // Fallback to mock data from localStorage
-      const mockClients = JSON.parse(localStorage.getItem('mock_clients') || '[]');
-      const foundClient = mockClients.find((c: Client) => c.id === clientId);
-      
-      if (!foundClient) {
-        setError('Client not found');
-        return;
-      }
-      
-      setClient(foundClient);
-      
+      // Fetch live client record first
+      const clientResponse = await api(`/clients/${clientId}`);
+      setClient(clientResponse);
+
       // Fetch client's reports
       try {
         const reportsResponse = await api('/reports');
-        const allReports = reportsResponse.reports || [];
+        const allReports = Array.isArray(reportsResponse)
+          ? reportsResponse
+          : reportsResponse.reports || [];
         const clientReports = allReports.filter((r: Report) => r.user_id === clientId);
         setReports(clientReports);
       } catch (error) {
         console.error('Failed to fetch reports:', error);
         setReports([]);
       }
-      
+
       // Fetch client's disputes
       try {
         const disputesResponse = await api('/disputes');
@@ -162,7 +146,7 @@ export default function ClientDetail() {
         <div className="container">
           <div className="navbar-content">
             <a href="/" className="navbar-brand">
-              <img src="/ufml-logo.png" alt="UFML Logo" style={{ width: '128px', height: '128px', marginRight: '1rem' }} />
+              <img src="/ufml-logo.svg" alt="UFML" style={{ width: '128px', height: '128px', marginRight: '1rem' }} />
               UFML
             </a>
             <ul className="navbar-nav">
@@ -183,7 +167,10 @@ export default function ClientDetail() {
             <div>
               <h1>Client Profile</h1>
               <p style={{color: 'var(--gray-600)'}}>
-                {client.email} • Client since {formatDate(client.created_at)}
+                {(client.first_name || client.last_name)
+                  ? `${client.first_name || ''} ${client.last_name || ''} • ${client.email}`.trim()
+                  : client.email}
+                {' • '}Client since {formatDate(client.created_at)}
               </p>
             </div>
             <div style={{display: 'flex', gap: 'var(--space-3)'}}>

@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from apps.api.routers import reports, clients, disputes, ai
+
+from .routers import reports, clients, disputes, ai
 
 app = FastAPI(title="UFML API", version="0.1.0")
 

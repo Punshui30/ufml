@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { BarChart3, Lightbulb, X } from 'lucide-react';
-import { api } from '../../lib/api';
+import { api } from '../../api';
 
 
 interface Report {

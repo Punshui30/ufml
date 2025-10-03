@@ -42,8 +42,8 @@ export default function LoadingPage() {
               cursor: 'pointer',
               transition: 'background-color 0.3s'
             }}
-            onMouseOver={(e) => e.target.style.backgroundColor = '#0056b3'}
-            onMouseOut={(e) => e.target.style.backgroundColor = '#007bff'}
+            onMouseOver={(e) => { e.currentTarget.style.backgroundColor = '#0056b3'; }}
+            onMouseOut={(e) => { e.currentTarget.style.backgroundColor = '#007bff'; }}
           >
             Show Loading Screen
           </button>

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Plus, FileText, Clock, CheckCircle, XCircle } from 'lucide-react';
-import { api } from '../../lib/api';
+import { api } from '../../api';
 
 interface Dispute {
   id: string;

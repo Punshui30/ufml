@@ -3,7 +3,7 @@
 // import ProtectedRoute from '../components/ProtectedRoute';
 import { useState, useEffect } from 'react';
 import { Target, Clipboard, Link as LinkIcon } from 'lucide-react';
-import { api } from '../lib/api';
+import { api } from '../api';
 // Navigation is included globally in layout.tsx
 
 interface DashboardStats {

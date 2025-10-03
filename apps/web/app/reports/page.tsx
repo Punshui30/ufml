@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Download, Plus, FileText, Trash2 } from 'lucide-react';
-import { api } from '../lib/api';
+import { api } from '../api';
 
 interface Report {
   id: string;
@@ -11,6 +11,7 @@ interface Report {
   report_date: string;
   has_parsed_data: boolean;
   created_at: string;
+  filename?: string;
 }
 
 export default function Reports() {
@@ -26,22 +27,15 @@ export default function Reports() {
     try {
       setLoading(true);
       const response = await api('/reports');
-      // Backend returns array directly, not wrapped in {reports: [...]}
-      const reportsData = Array.isArray(response) ? response : (response.reports || []);
-      
-      // Map backend response to frontend expected format
-      const mappedReports = reportsData.map((report: any) => ({
-        id: report.id,
-        user_id: 'client_1759251660898', // Default client ID
-        bureau: report.filename?.includes('Equifax') ? 'Equifax' : 
-                report.filename?.includes('Experian') ? 'Experian' : 
-                report.filename?.includes('TransUnion') ? 'TransUnion' : 'Unknown',
-        report_date: report.created_at || new Date().toISOString(),
-        has_parsed_data: report.text_len > 0,
-        created_at: report.created_at || new Date().toISOString()
-      }));
-      
-      setReports(mappedReports);
+      const reportsData: Report[] = Array.isArray(response)
+        ? response
+        : (response.reports || []);
+
+      setReports(reportsData.map((report) => ({
+        ...report,
+        report_date: report.report_date || report.created_at,
+        has_parsed_data: report.has_parsed_data ?? (report as any).text_len > 0,
+      })));
     } catch (error: any) {
       console.error('Failed to fetch reports:', error);
       setError('Failed to load reports. Please try again later.');
@@ -147,6 +141,11 @@ export default function Reports() {
                         <div style={{color: 'var(--gray-600)', fontSize: '0.875rem'}}>
                           Uploaded: {formatDate(report.created_at)}
                         </div>
+                        {report.filename && (
+                          <div style={{color: 'var(--gray-500)', fontSize: '0.75rem'}}>
+                            {report.filename}
+                          </div>
+                        )}
                       </div>
                       {getStatusBadge(report)}
                       <span style={{color: 'var(--gray-600)', fontSize: '0.875rem'}}>
