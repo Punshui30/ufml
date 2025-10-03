@@ -32,3 +32,4 @@ async def with_request_log(request: Request, call_next: Callable):
     # echo request id so clients can surface it
     response.headers["X-Request-ID"] = req_id
     return response
+

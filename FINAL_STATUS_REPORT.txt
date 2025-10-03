@@ -55,3 +55,4 @@ curl.exe -F "file=@yourfile.pdf;type=application/pdf" http://127.0.0.1:8000/repo
 The backend is 100% working. The only issue is Tesseract OCR not being installed for image-based PDF processing. Once installed, everything will work perfectly.
 
 **The "BACKEND NOT AVAILABLE" error is misleading - the backend IS available, it just crashes on PDF upload due to missing OCR dependency.**
+

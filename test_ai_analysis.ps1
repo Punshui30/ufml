@@ -60,3 +60,4 @@ foreach ($field in $aiFields) {
 }
 
 Write-Host "`n=== AI ANALYSIS TEST COMPLETE ===" -ForegroundColor Green
+

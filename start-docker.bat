@@ -16,3 +16,4 @@ echo - Frontend Web: http://127.0.0.1:3000
 echo.
 echo Press Ctrl+C to stop all services
 pause
+

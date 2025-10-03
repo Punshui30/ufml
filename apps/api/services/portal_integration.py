@@ -326,3 +326,4 @@ class PortalIntegrationService:
             "extraction_ready": True
         }
 
+

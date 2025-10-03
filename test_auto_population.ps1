@@ -61,3 +61,4 @@ Write-Host "   - Bureau: $($analysisJson.summary.bureau)" -ForegroundColor White
 Write-Host "   - Dispute suggestions from AI analysis" -ForegroundColor White
 Write-Host "3. Check browser console for auto-population logs" -ForegroundColor Cyan
 Write-Host "4. Fill out any missing fields and submit the form" -ForegroundColor Cyan
+

@@ -228,3 +228,4 @@ apps/api/reports.json
 apps/api/report_*.txt
 *.db
 *.sqlite
+

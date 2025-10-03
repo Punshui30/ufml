@@ -127,3 +127,4 @@ Write-Host "   - Select a dispute reason" -ForegroundColor White
 Write-Host "   - Add additional details" -ForegroundColor White
 Write-Host "4. Click 'Create Dispute Letter'" -ForegroundColor Cyan
 Write-Host "5. Check browser console for any errors" -ForegroundColor Cyan
+
