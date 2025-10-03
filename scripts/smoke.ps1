@@ -82,7 +82,8 @@ try {
     $reportsResult = Test-Step "List Reports" {
         $response = Invoke-RestMethod -Uri "$ApiUrl/reports" -Method GET
 
-        if (-not $response.reports) {
+        $hasReportsProperty = $response.PSObject.Properties.Name -contains "reports"
+        if (-not $hasReportsProperty) {
             throw "Reports endpoint response missing reports collection"
         }
 
