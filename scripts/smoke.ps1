@@ -81,19 +81,29 @@ try {
     # Test 4: List Reports
     $reportsResult = Test-Step "List Reports" {
         $response = Invoke-RestMethod -Uri "$ApiUrl/reports" -Method GET
-        if ($response -isnot [array]) {
-            throw "Reports endpoint should return an array"
+
+        if (-not $response.reports) {
+            throw "Reports endpoint response missing reports collection"
         }
-        if ($uploadResult -and $response.Count -eq 0) {
+
+        $reports = @($response.reports)
+
+        if ($uploadResult -and $reports.Count -eq 0) {
             throw "Expected at least 1 report after upload"
         }
-        return $response
+
+        return [pscustomobject]@{
+            Reports = $reports
+            RawResponse = $response
+        }
     }
 
     # Test 5: AI Analysis (if we have a report)
     $analysisResult = $null
-    if ($uploadResult -or $reportsResult.Count -gt 0) {
-        $reportId = if ($uploadResult) { $uploadResult.id } else { $reportsResult[0].id }
+    $availableReports = if ($reportsResult) { @($reportsResult.Reports) } else { @() }
+
+    if ($uploadResult -or $availableReports.Count -gt 0) {
+        $reportId = if ($uploadResult) { $uploadResult.id } else { $availableReports[0].id }
         
         $analysisResult = Test-Step "AI Analysis" {
             $body = @{report_id = $reportId} | ConvertTo-Json
@@ -110,8 +120,8 @@ try {
     }
 
     # Test 6: Delete Report (if we have one)
-    if ($uploadResult -or $reportsResult.Count -gt 0) {
-        $reportId = if ($uploadResult) { $uploadResult.id } else { $reportsResult[0].id }
+    if ($uploadResult -or $availableReports.Count -gt 0) {
+        $reportId = if ($uploadResult) { $uploadResult.id } else { $availableReports[0].id }
         
         Test-Step "Delete Report" {
             Invoke-RestMethod -Uri "$ApiUrl/reports/$reportId" -Method DELETE
